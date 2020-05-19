@@ -4,11 +4,6 @@
 #   Date:       05/15/2020
 #   Comments:   solves easy sudoku using row, column and box match
 #
-#   Version:    V.01.1
-#   Date:       05/15/2020
-#   Comments:   t = len(sudoku_to_solve) and solve() were in the wrong order
-#
-
 
 import numpy as nmp
 
@@ -28,6 +23,7 @@ def make_box(grid):
     return box
 
 
+
 def solve():
     # simple row column match
     for n in sudoku_to_solve:
@@ -44,8 +40,11 @@ def solve():
             sudoku_box[n[2][0]][n[2][1]][2])
 
         if len(vals) == 1:
+            #print("Grid: " + str(n) + " Value: " + str(vals) + " Row: " + str(sudoku_row[n[1]]) + " Col: " + str(sudoku_col[n[0]]))
+
             sudoku_row[n[1]][n[0]] = list(vals)[0]      # update the sudoko row
             sudoku_to_solve.remove(n)                   # remove from the solver array
+
 
 #######################################################################################################################
 
@@ -60,28 +59,29 @@ def solve():
 #             [8, 1, 0, 0, 2, 0, 0, 0, 5],
 #             [0, 2, 0, 4, 0, 3, 0, 9, 7]))
 
-sudoku_row = nmp.array((
-            [0, 0, 0, 1, 0, 0, 0, 4, 0],
-            [1, 9, 5, 0, 0, 8, 0, 0, 0],
-            [3, 4, 0, 0, 2, 0, 1, 0, 9],
-            [0, 0, 0, 9, 1, 0, 5, 0, 0],
-            [6, 0, 9, 8, 0, 2, 4, 0, 7],
-            [0, 0, 1, 0, 3, 4, 0, 0, 0],
-            [2, 0, 8, 0, 4, 0, 0, 7, 1],
-            [0, 0, 0, 7, 0, 0, 8, 3, 2],
-            [0, 1, 0, 0, 0, 9, 0, 0, 0]))
-
-# Medium
 # sudoku_row = nmp.array((
-#             [1, 3, 0, 8, 0, 0, 6, 0, 0],
-#             [0, 0, 2, 0, 0, 7, 0, 0, 0],
-#             [0, 0, 0, 1, 2, 0, 0, 7, 9],
-#             [2, 8, 0, 0, 0, 0, 0, 0, 0],
-#             [0, 9, 0, 0, 3, 0, 0, 1, 0],
-#             [0, 0, 0, 0, 0, 0, 0, 2, 3],
-#             [5, 7, 0, 0, 8, 3, 0, 0, 0],
-#             [0, 0, 0, 4, 0, 0, 9, 0, 0],
-#             [0, 0, 9, 0, 0, 2, 0, 6, 7]))
+#             [0, 0, 0, 1, 0, 0, 0, 4, 0],
+#             [1, 9, 5, 0, 0, 8, 0, 0, 0],
+#             [3, 4, 0, 0, 2, 0, 1, 0, 9],
+#             [0, 0, 0, 9, 1, 0, 5, 0, 0],
+#             [6, 0, 9, 8, 0, 2, 4, 0, 7],
+#             [0, 0, 1, 0, 3, 4, 0, 0, 0],
+#             [2, 0, 8, 0, 4, 0, 0, 7, 1],
+#             [0, 0, 0, 7, 0, 0, 8, 3, 2],
+#             [0, 1, 0, 0, 0, 9, 0, 0, 0]))
+
+#Medium
+sudoku_row = nmp.array((
+            [1, 3, 0, 8, 0, 0, 6, 0, 0],
+            [0, 0, 2, 0, 0, 7, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 7, 9],
+            [2, 8, 0, 0, 0, 0, 0, 0, 0],
+            [0, 9, 0, 0, 3, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 2, 3],
+            [5, 7, 0, 0, 8, 3, 0, 0, 0],
+            [0, 0, 0, 4, 0, 0, 9, 0, 0],
+            [0, 0, 9, 0, 0, 2, 0, 6, 7]))
+
 
 # set all the sudoku data in rows, columns and boxes. We will solve the row
 print(sudoku_row)
@@ -119,7 +119,11 @@ while len(sudoku_to_solve) > 0:
     else:
         t = len(sudoku_to_solve)
         solve()
-
+        sudoku_col = sudoku_row.transpose()
+        sudoku_box = make_box(sudoku_row)
+        #print(sudoku_row)
+        # print(sudoku_col)
+        # print(sudoku_box)
 
 print(sudoku_row)
 print(len(sudoku_to_solve))
